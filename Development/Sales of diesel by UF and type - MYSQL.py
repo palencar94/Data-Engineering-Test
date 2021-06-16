@@ -14,7 +14,7 @@ from sqlalchemy import create_engine
 # Conexão com o container mysql
 
 
-engine = create_engine('mysql+pymysql://root:secret@172.18.0.5/oil?charset=utf8')
+engine = create_engine('mysql+pymysql://oil:secret@172.18.0.5/oil?charset=utf8')
 
 
 # Leitura do csv
@@ -41,7 +41,7 @@ final.to_sql('stg_diesel', con = engine, if_exists = 'replace', index = False)
 
 conn = mysql.connector.connect(host='172.18.0.5',
                                        database='oil',
-                                       user='root',
+                                       user='oil',
                                        password='secret')
 cursor_create = conn.cursor()
 cursor = conn.cursor()
