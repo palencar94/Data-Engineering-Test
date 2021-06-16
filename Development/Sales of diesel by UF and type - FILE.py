@@ -12,7 +12,7 @@ import numpy as np
 from pandas import DataFrame 
 
 
-# Nomear o arquivo será salvo
+# Nomear o arquivo que será salvo
 
 
 nome_arquivo = '...\\Sales_of_dieadel_by_UF_and_type.xls'
