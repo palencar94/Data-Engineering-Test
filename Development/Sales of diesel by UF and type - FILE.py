@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# Importar as bibliotecas
 
 
 import os
@@ -12,34 +12,34 @@ import numpy as np
 from pandas import DataFrame 
 
 
-# In[2]:
+# Nomear o arquivo será salvo
 
 
-nome_arquivo = 'D:\\Raizen\\Sales_of_dieadel_by_UF_and_type.xls'
+nome_arquivo = '...\\Sales_of_dieadel_by_UF_and_type.xls'
 
 
-# In[3]:
+# Download do arquivo que utilizaremos:
 
 
 url = 'http://www.anp.gov.br/arquivos/dados-estatisticos/vendas-combustiveis/vendas-combustiveis-m3.xls'
 file_name, headers = urllib.request.urlretrieve(url)
 
 
-# In[4]:
+# Abertura do arquivo de apoio com a macro para revelar os dados da tabela dinamica e abertura do arquivo com as tabelas dinamicas:
 
 
 wb_vba = xw.Book('D:\\Raizen\\Double_click_diesel.xlsm')
 wb = xw.Book(file_name)
 
 
-# In[5]:
+# Executa a macro
 
 
 macro = wb_vba.macro('click')
 macro()
 
 
-# In[6]:
+# Se o arquivo já existir no diretório ele deleta:
 
 
 try:
@@ -48,20 +48,20 @@ except:
     print("Sem arquivo")
 
 
-# In[7]:
+# Salva o arquivo com as abas da dinamica explicitas
 
 
 wb.save(nome_arquivo)
 
 
-# In[8]:
+# Fecha os arquivos
 
 
 app = xw.apps.active 
 app.quit()
 
 
-# In[9]:
+# Importa todas as abas da planilha para um dataframe
 
 
 df_oil_2 = pd.DataFrame(columns=['COMBUSTÍVEL', 'ANO', 'REGIÃO', 'ESTADO', 'UNIDADE', 'Jan', 'Fev','Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'TOTAL'])
@@ -70,19 +70,19 @@ for num in range(0,8):
     df_oil_2 = df_oil_2.append(df_oil, ignore_index=True)
 
 
-# In[10]:
+# Validação dataframe
 
 
 df_oil_2
 
 
-# In[11]:
+# Deleção da coluna total para fazer o pivot
 
 
 del df_oil_2['TOTAL']
 
 
-# In[12]:
+# Pivot a tabela para ficar colunar
 
 
 df_oil_2 = df_oil_2.melt(id_vars=["COMBUSTÍVEL", "ANO", "REGIÃO", "ESTADO", "UNIDADE"], 
@@ -90,19 +90,19 @@ df_oil_2 = df_oil_2.melt(id_vars=["COMBUSTÍVEL", "ANO", "REGIÃO", "ESTADO", "U
                 value_name="TOTAL")
 
 
-# In[13]:
+# Validação do dataframe
 
 
 df_oil_2
 
 
-# In[14]:
+# Validação dos valores
 
 
 round(df_oil_2.groupby(['ANO', 'MES']).sum(['TOTAL']))
 
 
-# In[15]:
+# De para solicitado para o mes (de extenso para numerico) e para o Estado (de nome do estado para sigla UF) e concatenação do ano com o mes
 
 
 de_para_mes = {'Jan':1, 'Fev':2,'Mar':3, 'Abr':4, 'Mai':5, 'Jun':6, 'Jul':7, 'Ago':8, 'Set':9, 'Out':10, 'Nov':11, 'Dez':12} 
@@ -153,23 +153,23 @@ df_oil_2['YEAR_MONTH'] = df_oil_2['ANO'].map(str) + '-' + df_oil_2['MES_NUM'].ma
 df_oil_2
 
 
-# In[16]:
+# Validação
 
 
 final = DataFrame(df_oil_2, columns = ['YEAR_MONTH', 'UF', 'COMBUSTÍVEL', 'UNIDADE', 'TOTAL'])
 
 
-# In[17]:
+# Setar o year_moth como index
 
 
 final.set_index('YEAR_MONTH', inplace=True)
 
 
-# In[18]:
+# Exportar o dataframe
 
 
 #final
-final.to_csv('D:\\Raizen\\final_diesel.csv')
+final.to_csv('...\\final_diesel.csv')
 
 
 # In[ ]:
