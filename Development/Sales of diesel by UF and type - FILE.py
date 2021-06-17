@@ -15,7 +15,7 @@ from pandas import DataFrame
 # Nomear o arquivo que será salvo
 
 
-nome_arquivo = '...\\Sales_of_dieadel_by_UF_and_type.xls'
+nome_arquivo = '...\Sales_of_dieadel_by_UF_and_type.xls'
 
 
 # Download do arquivo que utilizaremos:
@@ -28,7 +28,7 @@ file_name, headers = urllib.request.urlretrieve(url)
 # Abertura do arquivo de apoio com a macro para revelar os dados da tabela dinamica e abertura do arquivo com as tabelas dinamicas:
 
 
-wb_vba = xw.Book('D:\\Raizen\\Double_click_diesel.xlsm')
+wb_vba = xw.Book('...\Double_click_diesel.xlsm')
 wb = xw.Book(file_name)
 
 
@@ -66,7 +66,7 @@ app.quit()
 
 df_oil_2 = pd.DataFrame(columns=['COMBUSTÍVEL', 'ANO', 'REGIÃO', 'ESTADO', 'UNIDADE', 'Jan', 'Fev','Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'TOTAL'])
 for num in range(0,8):
-    df_oil = pd.read_excel('D:\\Raizen\\Sales_of_dieadel_by_UF_and_type.xls',sheet_name=num)    
+    df_oil = pd.read_excel('...\Sales_of_dieadel_by_UF_and_type.xls',sheet_name=num)    
     df_oil_2 = df_oil_2.append(df_oil, ignore_index=True)
 
 
@@ -169,7 +169,7 @@ final.set_index('YEAR_MONTH', inplace=True)
 
 
 #final
-final.to_csv('...\\final_diesel.csv')
+final.to_csv('...\final_diesel.csv')
 
 
 # In[ ]:
